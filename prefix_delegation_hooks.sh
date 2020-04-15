@@ -1,4 +1,5 @@
 #!/bin/sh
+#TEST
 #IA_PD_IFACE=eth0
 new_ip6_prefix=${new_ip6_prefix:-"2001:1c04:480a:e7f0::/60"}
 IA_PD_IFACE=${IA_PD_IFACE:-"wlp2s0"}
