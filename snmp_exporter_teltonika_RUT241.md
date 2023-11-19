@@ -103,4 +103,5 @@
               replacement: 127.0.0.1:9116  # The SNMP exporter's real hostname:port.
 10. Restart the Prometheus daemon with a "kill -HUP" signal to tell the daemon to reread its config.
 11. Start/Restart the snmp_exporter daemon.
+12. Now import the Grafana Dashboard. Here is the [json](https://github.com/brendanbank/devops/blob/master/Teltonika_Dashboard-1700403566024.json) file you need to import into Grafana.
     
