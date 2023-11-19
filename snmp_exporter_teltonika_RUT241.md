@@ -14,7 +14,7 @@
    
        make generate
 7. Copy the MIB you downloaded from the router into the generator mibs directory snmp_exporter/generator/mibs of the [snmp_exporter](https://github.com/prometheus/snmp_exporter) package.
-8. Add the Teltonika RUT241 router configuration to the generator.yml file
+8. Add the Teltonika RUT241 router configuration to the generator.yml file in the snmp_exporter/generator directory. 
 
   \# add this to the generator.yml file
   
