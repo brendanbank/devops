@@ -81,7 +81,7 @@
          ifType:
            type: EnumAsInfo
 
-8. Then type make generate again and copy the snmp.yml file in the snmp_exporter/generator directory to /etc/prometheus/snmp.yml and restart the snmp_exporter service.
+8. Then go into the snmp_exporter/generator directory again type **make generate**  and copy the **snmp.yml** file in the snmp_exporter/generator directory to **/etc/prometheus/snmp.yml** and restart the snmp_exporter service.
       
        make generate
 9. Add the scraper configuration to the /etc/prometheus/prometheus.yml file.
