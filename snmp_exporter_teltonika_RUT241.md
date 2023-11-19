@@ -1,5 +1,5 @@
 # Creating a Grafana Dashboard for Teltonika RUTxxx routers
-<img width="1633" alt="teltonica-dashboard" src="https://github.com/brendanbank/devops/assets/63699049/7bad970e-b61b-4df6-9bf0-4507ce1d2674">
+<img width="1200" alt="image" src="https://github.com/brendanbank/devops/assets/63699049/8b58d1f0-163f-4c51-b73c-4580ce26b76e">
 
 ## Instalation and Configuration
 1. First, install [snmp_exporter](https://github.com/prometheus/snmp_exporter) and build the the source code. Or run snmp_exporter in a docker container.
