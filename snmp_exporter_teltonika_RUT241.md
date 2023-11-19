@@ -90,7 +90,7 @@
         - job_name: 'snmp'
           static_configs:
             - targets:
-              - <your hostname/ip address>  # SNMP device.
+              - **<your hostname/ip address>**  # SNMP device.
           metrics_path: /snmp
           params:
             #auth: [public]
@@ -102,4 +102,6 @@
               target_label: instance
             - target_label: __address__
               replacement: 127.0.0.1:9116  # The SNMP exporter's real hostname:port.
-
+10. Restart the Prometheus daemon with a "kill -HUP" signal to tell the daemon to reread its config.
+11. Start/Restart the snmp_exporter daemon.
+    
