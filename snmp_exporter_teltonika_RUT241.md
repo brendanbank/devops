@@ -4,9 +4,9 @@
 ## Instalation and Configuration
 1. First, install [snmp_exporter](https://github.com/prometheus/snmp_exporter) and build the the source code. Or run snmp_exporter in a docker container.
 2. [Install the SNMP package](https://wiki.teltonika-networks.com/view/RUT241_SNMP) on the Teltonika RUT241 router
-3. Enable the SNMP  Teltonika RUT241 router: Services -> SNMP -> SNMP configuration -> **Toggle Enable**
-4. Changing the default community (SNMP password) from **"public"** to something more appropriate is recommended: Services -> SNMP -> SNMP configuration -> **Communities** 
-5. Download the MIB from the Teltonika RUT241 router. You can find mib on the SNMP configuration page of the router. Services -> SNMP -> SNMP configuration -> click **Download**
+3. Enable the SNMP  Teltonika RUT241 router: Services -> SNMP -> SNMP Settings -> **Toggle Enable**
+4. Changing the default community (SNMP password) from **"public"** to something more appropriate is recommended: Services -> SNMP -> **Communities** 
+5. Download the MIB from the Teltonika RUT241 router. You can find mib on the SNMP configuration page of the router. Services -> SNMP -> SNMP Settings -> click **Download**
 
 <img width="600" alt="teltonica-snmp-config" src="https://github.com/brendanbank/devops/assets/63699049/b20ad0a7-89bb-4dea-b8d5-26ee0cb988b5">
 
