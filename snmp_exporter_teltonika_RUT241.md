@@ -1,10 +1,10 @@
 # Creating a Grafana Dashboard for Teltonika RUTxxx routers
 <img width="1200" alt="image" src="https://github.com/brendanbank/devops/assets/63699049/8b58d1f0-163f-4c51-b73c-4580ce26b76e">
 
-## Instalation and Configuration
-1. First, install [snmp_exporter](https://github.com/prometheus/snmp_exporter) and build the the source code. Or run snmp_exporter in a docker container.
+## Installation and Configuration
+1. First, install [snmp_exporter](https://github.com/prometheus/snmp_exporter). You can either build the source code or run snmp_exporter in a Docker container.
 2. [Install the SNMP package](https://wiki.teltonika-networks.com/view/RUT241_SNMP) on the Teltonika RUT241 router
-3. Enable the SNMP  Teltonika RUT241 router: Services -> SNMP -> SNMP Settings -> **Toggle Enable**
+3. Enable the SNMP on the Teltonika RUT241 router: Services -> SNMP -> SNMP Settings -> **Toggle Enable**
 4. Changing the default community (SNMP password) from **"public"** to something more appropriate is recommended: Services -> SNMP -> **Communities** 
 5. Download the MIB from the Teltonika RUT241 router. You can find mib on the SNMP configuration page of the router. Services -> SNMP -> SNMP Settings -> click **Download**
 
