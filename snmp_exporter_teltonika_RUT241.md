@@ -18,70 +18,68 @@
 
   \# add this to the generator.yml file
   
-    teltonika:
-      walk:
-        - hrSystem
-        - sysUpTime
-        - interfaces
-        - ifXTable
-        - ssCpuUser
-        - ssCpuSystem
-        - ssCpuIdle
-        - 1.3.6.1.4.1.48690 # Teltonika
-        - 1.3.6.1.4.1.2021.4 # memory
-        - 1.3.6.1.4.1.2021.10.1.1 # laIndex
-        - 1.3.6.1.4.1.2021.10.1.2 # laNames
-        - 1.3.6.1.4.1.2021.10.1.5 # laLoadInt
-        - 1.3.6.1.4.1.2021.11 # systemStats
-        - hrStorage
-      lookups:
-        - source_indexes: [hrStorageIndex]
-          lookup: hrStorageDescr
-          drop_source_indexes: true
-        - source_indexes: [ifIndex]
-          lookup: ifAlias
-          drop_source_indexes: true
-        - source_indexes: [ifIndex]
-          # Uis OID to avoid conflict with PaloAlto PAN-COMMON-MIB.
-          lookup: 1.3.6.1.2.1.2.2.1.2 # ifDescr
-          drop_source_indexes: true
-        - source_indexes: [ifIndex]
-          # Use OID to avoid conflict with Netscaler NS-ROOT-MIB.
-          lookup: 1.3.6.1.2.1.31.1.1.1.1 # ifName
-          drop_source_indexes: true
-        - source_indexes: [laIndex]
-          lookup: laNames
-          drop_source_indexes: true
-        - source_indexes: [mIndex]
-          lookup: mDescr
-          drop_source_indexes: true
-        - source_indexes: [ioIndex]
-          lookup: ioName
-          drop_source_indexes: true
-        - source_indexes: [ioIndex]
-          lookup: ioType
-          drop_source_indexes: true
-        - source_indexes: [pIndex]
-          lookup: pName
-          drop_source_indexes: true
-  
-      overrides:
-        mRSRQ:
-          type: Float
-        mSINR:
-          type: Float
-        mRSRP:
-          type: Float
-        mTemperature:
-          type: Float
-        ifAlias:
-          ignore: true # Lookup metric
-        ifDescr:
-          ignore: true # Lookup metric
-        ifName:
-          ignore: true # Lookup metric
-        ifType:
-          type: EnumAsInfo
+     teltonika:
+       walk:
+         - hrSystem
+         - sysUpTime
+         - interfaces
+         - ifXTable
+         - ssCpuUser
+         - ssCpuSystem
+         - ssCpuIdle
+         - 1.3.6.1.4.1.48690 # Teltonika
+         - 1.3.6.1.4.1.2021.4 # memory
+         - 1.3.6.1.4.1.2021.10 # Load
+         - 1.3.6.1.4.1.2021.11 # systemStats
+         - hrStorage
+       lookups:
+         - source_indexes: [hrStorageIndex]
+           lookup: hrStorageDescr
+           drop_source_indexes: true
+         - source_indexes: [ifIndex]
+           lookup: ifAlias
+           drop_source_indexes: true
+         - source_indexes: [ifIndex]
+           # Uis OID to avoid conflict with PaloAlto PAN-COMMON-MIB.
+           lookup: 1.3.6.1.2.1.2.2.1.2 # ifDescr
+           drop_source_indexes: true
+         - source_indexes: [ifIndex]
+           # Use OID to avoid conflict with Netscaler NS-ROOT-MIB.
+           lookup: 1.3.6.1.2.1.31.1.1.1.1 # ifName
+           drop_source_indexes: true
+         - source_indexes: [laIndex]
+           lookup: laNames
+           drop_source_indexes: true
+         - source_indexes: [mIndex]
+           lookup: mDescr
+           drop_source_indexes: true
+         - source_indexes: [ioIndex]
+           lookup: ioName
+           drop_source_indexes: true
+         - source_indexes: [ioIndex]
+           lookup: ioType
+           drop_source_indexes: true
+         - source_indexes: [pIndex]
+           lookup: pName
+           drop_source_indexes: true
+   
+       overrides:
+         mRSRQ:
+           type: Float
+         mSINR:
+           type: Float
+         mRSRP:
+           type: Float
+         mTemperature:
+           type: Float
+         ifAlias:
+           ignore: true # Lookup metric
+         ifDescr:
+           ignore: true # Lookup metric
+         ifName:
+           ignore: true # Lookup metric
+         ifType:
+           type: EnumAsInfo
 
 8. Then type make generate again and copy the snmp.yml file in the snmp_exporter/generator directory to /etc/prometheus/snmp.yml and restart the snmp_exporter service.
       
