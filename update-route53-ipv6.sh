@@ -7,11 +7,11 @@ echo Path is: $PATH
 echo User is: $USER
 
 # AWS Hosted Zone ID
-ZONEID="Z097797627RT9U34G2RQD"
+ZONEID="Your ZoneID here"
 echo Zone Id: $ZONEID
 
 # The CNAME you want to update e.g. hello.example.com
-RECORDSET=starlink.bgwlan.nl
+RECORDSET=`/usr/bin/hostnamea`
 echo Record Set: $RECORDSET
 
 # More advanced options below
