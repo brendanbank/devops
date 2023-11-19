@@ -11,7 +11,7 @@ ZONEID="Your ZoneID here"
 echo Zone Id: $ZONEID
 
 # The CNAME you want to update e.g. hello.example.com
-RECORDSET=`/usr/bin/hostnamea`
+RECORDSET=`/usr/bin/hostname`
 echo Record Set: $RECORDSET
 
 # More advanced options below
