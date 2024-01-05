@@ -274,6 +274,9 @@ if IP ADRESS is omitted it will query the ip adress from http://ifconfig.me, If 
     -h             This message
 EOF
 
+
+## Main starting
+
 OPTSTRING=":l:h:I:n:k:H46vFDr"
 IPCLASS=4
 FORCE_UPDATE=0
@@ -299,31 +302,36 @@ while getopts ${OPTSTRING} opt; do
   esac
 done
 
+if [ $OPTIND == 1 ] ; then echoerr_usage "$script_name requires arguments"; fi
+
+# if there is an IP address supplied. Check it.
 shift $(($OPTIND - 1))
 if [ ! -z "$SETIP" ]; then
     checkipaddress  ${SETIP} ${IPCLASS}
     [ $? -eq 0 ] && echoerr_usage "IP ${SETIP} is not an valid IPv${IPCLASS} address" 
 fi
 
+# this redirects STDERR to STDOUT and prints it to the logfile
 if [ ! -z "$LOGFILE" ] ; then
     exec > ${LOGFILE} 2>&1
     [ $? != 0 ] && echoerr "Trying to create logfile: ${LOGFILE}" 
     echo "`date`"
 fi
 
+# mandatory command line variables.
 [ -z "${HOSTNAME}" ] &&  echoerr_usage "HOSTNAME is empty"  
 [ -z "${NAMESERVER}" ] &&  echoerr_usage "NAMESERVER is empty" 
-[ -z "${INTERFACE}" ] &&  echoverbose "INTERFACE is empty"
 [ -z "${KEYFILE}" ] &&  echoerr_usage "KEYFILE is empty" 
+[ $IPCLASS == 4 ] && RRTYPE=A || RRTYPE=AAAA
+
+# INTERFACE is optional
+[ -z "${INTERFACE}" ] &&  echoverbose "INTERFACE is empty"
 
 if [ "$IPCLASS" -ne 4 ] && [ "$IPCLASS" -ne 6 ] ;then
     echoerr_usage "-6 or -4 is missing" 
 fi
 
-if [ $OPTIND == 1 ] ; then echoerr_usage "$script_name requires arguments"; fi
-
-
-#check if the interface exists
+#check if the interface exists if supplied.
 if [ ! -z $INTERFACE ]; then
     checkinterface
 fi
@@ -332,29 +340,24 @@ fi
 [ ! -r "$KEYFILE" ] &&  echoerr "KEYFILE $KEYFILE is does not exists or is note readable."
 
 #check if the nameserver is a valid ip4 address
-
 checkipaddress  $NAMESERVER ${MY_IP} 4
 [ $? -eq 0 ] && echoerr_usage "NAMESERVER ${NAMESERVER} is not an valid IPv4 address" 
 
 
+# if an IP address supplied on commandline set the IP we work with to that.
 if [ ! -z ${SETIP} ]; then
     MY_IP=${SETIP}
+# if not fetch the IP address of an external source.
 else
     getfetchapp
     echoverbose "run: $APP_EXEC_ARG"
-    
     MY_IP=$($APP_EXEC_ARG)
     [ $? != 0 ] && echoerr "APP_EXEC_ARG exited with non 0 exit code." 
-        
-    # to be tested 2001:4c3c:7600:a800::123
+	checkipaddress ${MY_IP} ${IPCLASS}
+	[ $? -eq 0 ] && echoerr "${MY_IP} is invalid, exiting...."
 fi
 
-
-[ $IPCLASS == 4 ] && RRTYPE=A || RRTYPE=AAAA
-
-checkipaddress ${MY_IP} ${IPCLASS}
-[ $? -eq 0 ] && echoerr "${MY_IP} is invalid, exiting...."
-
+# if the reverse adress is requested transform MY_IP into a PTR record. 
 if [ $REVERSE == 1 ]; then
     if [ $IPCLASS == 4 ]; then
         reverseip4 $MY_IP
@@ -368,18 +371,22 @@ if [ $REVERSE == 1 ]; then
 
 fi
     
-
+# check if the Resource Record exists.
 rrcheckdnsname ${HOSTNAME} ${NAMESERVER} ${RRTYPE}
 echoverbose "My ip address is $MY_IP / ${RR_IP} / $MY_IP"
 
+# Do not delete is the Resource Record does not exists
 if [ -z ${RR_IP} ] && [ ${DELETE} == 1 ] && [ ${FORCE_UPDATE} == 0 ]; then
     echo "There is nothing to delete on server ${NAMESERVER}, hostname ${HOSTNAME} does not exists there. "
     exit 0
+# Do not update if the Resource Record is stil the same.
 elif [ "${RR_IP}" == "${MY_IP}" ] && [ ${FORCE_UPDATE} == 0 ] && [ ${DELETE} == 0 ]; then
     echo "IP has not changed for $HOSTNAME -> $MY_IP. Exiting...!"
     exit 0
+# Delete Resource Record
 elif [ ${DELETE} == 1 ] ; then
     makeNSUPDATE_DELETE
+# Update/Add Resource Record
 else
     makeNSUPDATE
 fi
