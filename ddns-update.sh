@@ -307,6 +307,7 @@ if [ $OPTIND == 1 ] ; then echoerr_usage "$script_name requires arguments"; fi
 
 # if there is an IP address supplied. Check it.
 shift $(($OPTIND - 1))
+SETIP="$*"
 if [ ! -z "$SETIP" ]; then
     checkipaddress  ${SETIP} ${IPCLASS}
     [ $? -eq 0 ] && echoerr_usage "IP ${SETIP} is not an valid IPv${IPCLASS} address" 
