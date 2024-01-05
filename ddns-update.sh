@@ -111,6 +111,7 @@ checkinterface () {
     for I in $INTERFACES; do
         [ "$INTERFACE" == $I ] &&  INTERFACE_FOUND=true && break
     done
+
     if [ $INTERFACE_FOUND == false ] ; then
         echoerr "Could not find INTERFACE '${INTERFACE}' valid interfaces are: $INTERFACES"
     fi
