@@ -138,7 +138,7 @@ checkipaddress () {
     
 }
 
-rrcheckdnsname () {
+rrcheckname () {
     RRHOSTNAME=$1
     RRSERVER=$2
     RRTYPE=$3
@@ -375,7 +375,7 @@ if [ $REVERSE == 1 ]; then
 fi
     
 # check if the Resource Record exists.
-rrcheckdnsname ${HOSTNAME} ${NAMESERVER} ${RRTYPE}
+rrcheckname ${HOSTNAME} ${NAMESERVER} ${RRTYPE}
 echoverbose "My ip address is $MY_IP / ${RR_IP} / $MY_IP"
 
 # Do not delete is the Resource Record does not exists
