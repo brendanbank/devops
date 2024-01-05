@@ -315,7 +315,7 @@ fi
 
 # this redirects STDERR to STDOUT and prints it to the logfile
 if [ ! -z "$LOGFILE" ] ; then
-    exec > ${LOGFILE} 2>&1
+    exec >> ${LOGFILE} 2>&1
     [ $? != 0 ] && echoerr "Trying to create logfile: ${LOGFILE}" 
     echo "`date`"
 fi
