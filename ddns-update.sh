@@ -35,6 +35,7 @@ IFCONFIG_CMD=$(type -P ifconfig)
 IFCONFIG_CMD_EXEC="${IFCONFIG_CMD} -l -u inet"
 IP_CMD=$(type -P ip)
 IP_CMD_EXEC="${IP_CMD} -o link show"
+ERROR_TXT=""
 
 echoerr_usage() { 
     echo "ERR: $@" 1>&2
@@ -46,9 +47,15 @@ echoerr() {
     echo "ERR: $@" 1>&2
     exit 1
     }
-    
+ 
 echoverbose (){
-    [ "${VERBOSE}" == 1 ] && echo "$@" || VERBOSE_TXT=$(echo "${VERBOSE_TXT}" "$@")
+    if [ "${VERBOSE}" == 1 ]; then
+		echo "$@"
+	else
+		VERBOSE_TXT="$@"
+		ERROR_TXT="${ERROR_TXT}
+${VERBOSE_TXT}"
+	fi
 }
 
 FETCHAPPS="curl"
@@ -384,8 +391,8 @@ echoverbose ""
 RETURN=$(echo "$NSUPDATE" | $NSUPDATE_APP -k $KEYFILE -v)
 if [ $? != 0 ] ; then
     echo "Something went wrong with nsupdate: "
-    echo "$VERBOSE_TXT"
-    echo "$RETURN"
+    echo "VERBOSE LOG -- $ERROR_TXT"
+    echo "NSUPDATE LOG -- $RETURN"
     exit 1
 fi
 
