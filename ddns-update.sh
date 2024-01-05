@@ -285,29 +285,28 @@ DELETE=0
 REVERSE=0
 
 while getopts ${OPTSTRING} opt; do
-  case ${opt} in
-    h) HOSTNAME=${OPTARG} ;;
-    4) IPCLASS=4 ;;
-    6) IPCLASS=6 ;;
-    I) INTERFACE=${OPTARG} ;;
-    n) NAMESERVER=${OPTARG} ;;
-    F) FORCE_UPDATE=1 ;; # Force update
-    v) VERBOSE=1 ;;
-    D) DELETE=1 ;;
-    r) REVERSE=1 ;;
-    l) LOGFILE=${OPTARG} ;;
-    k) KEYFILE=${OPTARG} ;;
-    H) echo "Help ${usage}"; exit 1 ;;
-    :) echoerr_usage "Option -${OPTARG} requires an argument." ;;
-    *) echoerr_usage "Unknown option -${OPTARG}" ;;
-  esac
+	case ${opt} in 
+		h) HOSTNAME=${OPTARG} ;;
+		4) IPCLASS=4 ;;
+		6) IPCLASS=6 ;;
+		I) INTERFACE=${OPTARG} ;;
+		n) NAMESERVER=${OPTARG} ;;
+		F) FORCE_UPDATE=1 ;; # Force update
+		v) VERBOSE=1 ;;
+		D) DELETE=1 ;;
+		r) REVERSE=1 ;;
+		l) LOGFILE=${OPTARG} ;;
+		k) KEYFILE=${OPTARG} ;;
+		H) echo "Help ${usage}"; exit 1 ;;
+		:) echoerr_usage "Option -${OPTARG} requires an argument." ;;
+		*) echoerr_usage "Unknown option -${OPTARG}" ;;
+	esac
 done
 
 if [ $OPTIND == 1 ] ; then echoerr_usage "$script_name requires arguments"; fi
 
 # if there is an IP address supplied. Check it.
 shift $(($OPTIND - 1))
-
 SETIP="$*"
 if [ ! -z "$SETIP" ]; then
     checkipaddress  ${SETIP} ${IPCLASS}
