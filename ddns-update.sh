@@ -398,16 +398,17 @@ echoverbose "Run NSUPDATE"
 echoverbose "$NSUPDATE"
 echoverbose ""
 
-RETURN=$(echo "$NSUPDATE" | $NSUPDATE_APP -k $KEYFILE -v)
+NSUPDATE_RETURN=$(echo "$NSUPDATE" | $NSUPDATE_APP -k $KEYFILE -v)
 if [ $? != 0 ] ; then
     echo "Something went wrong with nsupdate: "
     echo "VERBOSE LOG -- $ERROR_TXT"
-    echo "NSUPDATE LOG -- $RETURN"
+    echo "NSUPDATE LOG -- $NSUPDATE_RETURN"
     exit 1
 fi
 
 echoverbose ""
-echoverbose "$RETURN"
+echoverbose "$NSUPDATE_RETURN"
+
 if [ ${DELETE} == 1 ]; then
 	echo "Delete Succesful $HOSTNAME -> $MY_IP!"
 else
