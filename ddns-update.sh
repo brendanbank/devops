@@ -261,7 +261,7 @@ usage: $script_name [-H HOSTNAME] [-k keyfile] [-6] [-4] [-I INTERFACE] [-n NAME
 
 if IP ADRESS is omitted it will query the ip adress from http://ifconfig.me, If -I is given 'fetch' it will use this interface.
 
-    -H             Hostname to set the  resource record to
+    -h             Hostname to set the  resource record to
     -k             Location of the bind keyfile
     -6             Set ipv6 ip adress (if -I is set)
     -4             Set ipv4 ip adress (if -I is set)
@@ -272,7 +272,7 @@ if IP ADRESS is omitted it will query the ip adress from http://ifconfig.me, If 
     -D             Deletes the resource record (if the resource record exists)
     -r             Sets the reverse IP Adress (1.2.3.4.IN-ADDR.ARPA) to the hostname
     -l             LOGFILE send all log to a seperate logfile including STDERR
-    -h             This message
+    -H             This message
 EOF
 
 
