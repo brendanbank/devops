@@ -88,7 +88,7 @@ $clean = true;
 echo "..." . PHP_EOL;
 
 // Run through the gateways configuraion and find entries were the status is set.
-foreach ($config['gateways']['gateway_item'] as $gateway_array) {
+foreach ($config['OPNsense']['Gateways']['gateway_item'] as $gateway_array) {
     $gwname = $gateway_array['name'];
     if (isset($gateways_status[$gwname]['status'])) {
         // fetch name, status and if the gateway is also a default gateway (Upstream Gateway)
