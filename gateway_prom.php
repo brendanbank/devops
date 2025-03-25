@@ -117,24 +117,29 @@ foreach ($config['OPNsense']['Gateways']['gateway_item'] as $gateway_array) {
     if ($gateways_status[$gwname]['monitor'] == '~') {
 	continue;
     }
+    $descr = $gwname;
+    if (isset($gateway_array['descr']) and $gateway_array['descr'] != "") {
+	$descr = $gateway_array['descr'];
+    }
+
     if (isset($gateways_status[$gwname]['status'])) {
  	$status = $gateways_status[$gwname]['status'];
-        $prom_status = $prom_status .  sprintf ('opnsense_gateway_status{gateway="%s"} %d', $gwname, get_status($status)) . PHP_EOL;
+        $prom_status = $prom_status .  sprintf ('opnsense_gateway_status{descr="%s","gateway="%s"} %d', $descr, $gwname, get_status($status)) . PHP_EOL;
     }
  
     if ($gateways_status[$gwname]['delay'] != '~') {
         $delay = trim($gateways_status[$gwname]['delay']," ms");
-        #$prom_delay = $prom_delay .  sprintf ('opnsense_gateway_delay{gateway="%s",status="%s",monitor="%s"} %.2f', $gwname, get_gateway_error_msg($status), $monitor, $delay ) . PHP_EOL;
-        $prom_delay = $prom_delay .  sprintf ('opnsense_gateway_delay{gateway="%s"} %.2f', $gwname, $delay ) . PHP_EOL;
+        #$prom_delay = $prom_delay .  sprintf ('opnsense_gateway_delay{descr="%s",gateway="%s",status="%s",monitor="%s"} %.2f', $descr, $gwname, get_gateway_error_msg($status), $monitor, $delay ) . PHP_EOL;
+        $prom_delay = $prom_delay .  sprintf ('opnsense_gateway_delay{descr="%s",gateway="%s"} %.2f', $descr, $gwname, $delay ) . PHP_EOL;
     }
     if ($gateways_status[$gwname]['loss'] != '~') {
         $loss = trim($gateways_status[$gwname]['loss']," %");
-        $prom_loss = $prom_loss .  sprintf ('opnsense_gateway_loss{gateway="%s"} %.2f', $gwname, $loss ) . PHP_EOL;
+        $prom_loss = $prom_loss .  sprintf ('opnsense_gateway_loss{descr="%s",gateway="%s"} %.2f', $descr,$gwname, $loss ) . PHP_EOL;
     }
     if (isset($gateways_status[$gwname]['status'])) {
         $status = $gateways_status[$gwname]['status'];
         $monitor = $gateways_status[$gwname]['monitor'];
-        $prom_info = $prom_info .  sprintf ('opnsense_gateway_info{gateway="%s",status="%s",monitor="%s"} %s', $gwname, get_gateway_error_msg($status), $monitor, get_status($status)) . PHP_EOL;
+        $prom_info = $prom_info .  sprintf ('opnsense_gateway_info{descr="%s",gateway="%s",status="%s",monitor="%s"} %s', $descr, $gwname, get_gateway_error_msg($status), $monitor, get_status($status)) . PHP_EOL;
     }
 }
 
